@@ -1,0 +1,66 @@
+<html>
+  <head>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  	<style type="text/css">
+  		body {
+  			margin:0;
+  			padding: 0;
+  		}
+  	</style>
+    <script language="javascript" type="text/javascript" src="node_modules/p5/lib/p5.min.js"></script>
+    <script type="text/javascript" src="node_modules/socket.io-client/dist/socket.io.slim.js"></script>
+    <script type="text/javascript">
+    	var r, g, b;
+    	var socket;
+		function setup() {
+		  createCanvas(windowWidth, windowHeight);
+		  socket = io.connect('http://192.168.43.95:8080');
+		  socket.on('mouse',
+		    function(data) {
+		      r = data.r;
+			  g = data.g;
+			  b = data.b;
+			  background(127);
+			  // Draw a circle
+			  strokeWeight(10);
+			  stroke(r, g, b);
+			  fill(r, g, b, 127);
+			  ellipse(windowWidth/2, windowHeight/2, 200, 200);
+		    }
+		  );
+		}
+
+		function draw() {
+		  background(127);
+		  // Draw a circle
+		  strokeWeight(10);
+		  stroke(r, g, b);
+		  fill(r, g, b, 127);
+		  ellipse(windowWidth/2, windowHeight/2, 200, 200);
+		}
+
+		function mousePressed() {
+		  var d = dist(mouseX, mouseY, windowWidth/2, windowHeight/2);
+		  if (d < 100) {
+		    r = random(255);
+		    g = random(255);
+		    b = random(255);
+		    sendcolor(r, g, b)
+		  }
+		}
+
+		function sendcolor(r, g, b) {
+		  var data = {
+		    r: r,
+		    g: g,
+		    b: b
+		  };
+		  socket.emit('mouse',data);
+		}
+    </script>
+    <title>Click & Click </title>
+  </head>
+  <body>
+
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+  <head>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  	<style type="text/css">
+  		body {
+  			margin:0;
+  			padding: 0;
+  		}
+  	</style>
+    <script language="javascript" type="text/javascript" src="node_modules/p5/lib/p5.min.js"></script>
+    <script type="text/javascript" src="node_modules/socket.io-client/dist/socket.io.slim.js"></script>
+    <script type="text/javascript" src="util/util.js"></script>
+    <script type="text/javascript">
+    	var socket;
+
+		function setup() {
+		  createCanvas(windowWidth, windowHeight);
+		  background(255);
+		  socket = io.connect('http://192.168.43.95:8080');
+		  socket.on('mouse',
+		    function(data) {
+		      fill(data.x, 128-data.y, 255-data.y);
+		      stroke(data.x, 128-data.y,255-data.y);
+		      line(data.x, data.y, data.px, data.py);
+		    }
+		  );
+		}
+
+		function draw() {
+
+		}
+
+		function mouseDragged() {
+		  fill(mouseX, 128-mouseY, 255-mouseY);
+		  stroke(mouseX, 128-mouseY, 255-mouseY);
+		  line(mouseX, mouseY, pmouseX, pmouseY);
+		  sendmouse(mouseX,mouseY, pmouseX, pmouseY);
+		}
+
+		function sendmouse(xpos, ypos) {
+		  var data = {
+		    x: xpos,
+		    y: ypos,
+		    px: pmouseX,
+		    py: pmouseY
+		  };
+		  socket.emit('mouse',data);
+		}
+    </script>
+    <title>Draw with me!</title>
+  </head>
+  <body>
+
+  </body>
+</html>

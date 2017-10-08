@@ -1,0 +1,25 @@
+{
+  "name": "p5-ppt-code",
+  "version": "1.0.0",
+  "description": "Contains code sample of p5.js with node sockets",
+  "main": "server.js",
+  "dependencies": {
+    "p5": "^0.5.14",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parassharmaa/p5-ppt-code.git"
+  },
+  "author": "paras sharmaa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Parassharmaa/p5-ppt-code/issues"
+  },
+  "homepage": "https://github.com/Parassharmaa/p5-ppt-code#readme"
+}
